@@ -1,0 +1,52 @@
+
+class Subject {
+  constructor() {
+    this.observers = []; 
+  }
+
+  
+  addObserver(observer) {
+    this.observers.push(observer);
+  }
+
+  removeObserver(observer) {
+    const index = this.observers.indexOf(observer);
+    if (index !== -1) {
+      this.observers.splice(index, 1);
+    }
+  }
+
+  
+  notify(data) {
+    this.observers.forEach(observer => {
+      observer.update(data);
+    });
+  }
+}
+
+
+class Observer {
+  constructor(name) {
+    this.name = name;
+  }
+
+
+  update(data) {
+    console.log(`${this.name} ha recibido la actualización: ${data}`);
+  }
+}
+
+// Uso del patrón Observer
+const subject = new Subject();
+
+const observer1 = new Observer("Observador 1");
+const observer2 = new Observer("Observador 2");
+
+subject.addObserver(observer1);
+subject.addObserver(observer2);
+
+subject.notify("Nueva información"); 
+
+subject.removeObserver(observer1); 
+
+subject.notify("Otra actualización"); 
